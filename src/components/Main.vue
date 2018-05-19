@@ -15,28 +15,32 @@ export default {
     },
 
     mounted () {
-        this.final = this.main(this.order.graph)
+        this.final = this.pair(this.order.graph)
     },
 
     methods: {
 
-        main (arr) {
-            return arr.map(item => {
+        pair (order) {
+            return order.map(item => {
                 // if OBJECT
                 if (this.isObj(item)) {
-                    // complicated :D [key is computed value and values go recursively ]
-                    return { [this.getObjKey(item)]: this.main(this.getObjValue(item)) }
+                    // complicated :D | key is computed value and values go recursively
+                    return { [this.getObjKey(item)]: this.pair(this.getObjValue(item)) }
                 // if ARRAY
                 } else if (this.isArr(item)) {
                     // recursion
-                    return this.main(item)
+                    return this.pair(item)
                 // if STRING
                 } else if (this.isStr(item)) {
-                    // pair string
-                    return item + ' yeaah'
+                    // replace string
+                    return this.getIndexValue(item, this.variables.index)
                 }
                 return false
             })
+        },
+
+        getIndexValue (str, index) {
+            return index[str]
         },
 
         getObjValue (obj) {
@@ -50,15 +54,15 @@ export default {
         isArr (arr) {
             // maybe empty array?
             if (Array.isArray(arr)) {
-                // if empty array return false, otherwise true
-                return arr.length === 0 ? false : true
+                // if not empty array
+                return arr.length > 0
             }
             return false
         },
 
         isObj (obj) {
             // maybe empty obj?
-            if (typeof obj === 'object') {
+            if (typeof obj === 'object' && !Array.isArray(obj)) {
                 return true
             }
             return false
@@ -66,11 +70,11 @@ export default {
 
         isStr (str) {
             if (typeof str === 'string') {
-                return true
+                // if not empty string
+                return str.length > 1
             }
             return false
         }
-
     }
 }
 </script>
