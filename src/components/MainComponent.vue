@@ -1,16 +1,25 @@
 <template>
     <div>
-        hej hej
+            <!-- :label="tree.label"
+            :nodes="tree.nodes" -->
+        <crunch-component
+            :valueProp="final"
+            :keyProp="['root']"
+            :depth="0"
+            >
+        </crunch-component>
     </div>
 </template>
 
 <script>
+
 export default {
+
     data () {
         return {
             order: require('./../../fixtures/order.json'),
             variables: require('./../../fixtures/variables.json'),
-            final: []
+            final: [],
         }
     },
 
@@ -24,7 +33,7 @@ export default {
             return order.map(item => {
                 // if OBJECT
                 if (this.isObj(item)) {
-                    // complicated :D | key is computed value and values go recursively
+                    // complicated :) key is computed value and values go recursively
                     return { [this.getObjKey(item)]: this.pair(this.getObjValue(item)) }
                 // if ARRAY
                 } else if (this.isArr(item)) {
@@ -33,11 +42,18 @@ export default {
                 // if STRING
                 } else if (this.isStr(item)) {
                     // replace string
-                    return this.getIndexValue(item, this.variables.index)
+                    return this.getIndexValue(item, this.variables['index'])
                 }
                 return false
             })
         },
+
+        // modifyObject(obj) {
+        //     return {
+        //         'label': Object.keys(obj)[0],
+        //         'node': obj[Object.keys(obj)]
+        //     }
+        // },
 
         getIndexValue (str, index) {
             return index[str]

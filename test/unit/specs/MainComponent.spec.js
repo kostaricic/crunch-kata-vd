@@ -1,8 +1,8 @@
 import Vue from 'vue'
-import Main from '@/components/Main'
+import MainComponent from '@/components/MainComponent'
 
-describe('Main.vue', () => {
-    const Constructor = Vue.extend(Main)
+describe('MainComponent.vue', () => {
+    const Constructor = Vue.extend(MainComponent)
     const vm = new Constructor().$mount()
 
     it('Checks if is an Array', () => {
