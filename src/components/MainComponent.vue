@@ -1,9 +1,7 @@
 <template>
     <div>
-            <!-- :label="tree.label"
-            :nodes="tree.nodes" -->
         <crunch-component
-            :valueProp="final"
+            :valueProp="surveyData"
             :keyProp="['root']"
             :depth="0"
             >
@@ -19,12 +17,12 @@ export default {
         return {
             order: require('./../../fixtures/order.json'),
             variables: require('./../../fixtures/variables.json'),
-            final: [],
+            surveyData: ''
         }
     },
 
     mounted () {
-        this.final = this.pair(this.order.graph)
+        this.surveyData = this.pair(this.order.graph)
     },
 
     methods: {

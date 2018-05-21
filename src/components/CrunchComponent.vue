@@ -12,7 +12,7 @@
             {{ keyValueProp }}
         </div> -->
 
-        <div :style="indent">
+        <div :style="indent" @click="toggleChildren()">
             {{ keyProp.length > 1 ? keyValueProp.name : keyProp[0] }}
         </div>
 
@@ -20,6 +20,7 @@
 
         </div>
         <crunch-component
+            v-if="showChildren"
             v-for="(node, index) in valueProp"
             :key="index"
             :valueProp="node[Object.keys(node)]"
@@ -31,14 +32,23 @@
     </div>
 </template>
 
-
 <script>
 export default {
     props: ['keyProp', 'valueProp', 'keyValueProp', 'depth'],
 
+    data() {
+        return { showChildren: false }
+    },
+
     computed: {
-        indent() {
-            return { transform: `translate(${this.depth * 50}px)` }
+        indent () {
+            return { transform: `translate(${this.depth * 30}px)` }
+        }
+    },
+
+    methods: {
+        toggleChildren() {
+            this.showChildren = !this.showChildren
         }
     }
 }
