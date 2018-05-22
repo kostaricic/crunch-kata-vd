@@ -1,10 +1,10 @@
 import Vue from 'vue'
 import App from './App'
 
-import CrunchComponent from './components/CrunchComponent'
+import recursiveComponent from './components/recursiveComponent'
 import MainComponent from './components/MainComponent'
 
-Vue.component('crunch-component', CrunchComponent)
+Vue.component('recursive-component', recursiveComponent)
 Vue.component('main-component', MainComponent)
 
 Vue.config.productionTip = false

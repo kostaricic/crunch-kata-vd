@@ -1,11 +1,11 @@
 <template>
-    <div>
-        <crunch-component
+    <div class="main-container">
+        <recursive-component
             :valueProp="surveyData"
-            :keyProp="['root']"
+            :keyProp="['SURVEY DATA']"
             :depth="0"
             >
-        </crunch-component>
+        </recursive-component>
     </div>
 </template>
 
@@ -22,21 +22,21 @@ export default {
     },
 
     mounted () {
-        this.surveyData = this.pair(this.order.graph)
+        this.surveyData = this.mergePairs(this.order.graph)
     },
 
     methods: {
 
-        pair (order) {
+        mergePairs (order) {
             return order.map(item => {
                 // if OBJECT
                 if (this.isObj(item)) {
                     // complicated :) key is computed value and values go recursively
-                    return { [this.getObjKey(item)]: this.pair(this.getObjValue(item)) }
+                    return { [this.getObjKey(item)]: this.mergePairs(this.getObjValue(item)) }
                 // if ARRAY
                 } else if (this.isArr(item)) {
                     // recursion
-                    return this.pair(item)
+                    return this.mergePairs(item)
                 // if STRING
                 } else if (this.isStr(item)) {
                     // replace string
@@ -92,3 +92,10 @@ export default {
     }
 }
 </script>
+
+<style>
+    .main-container {
+        margin: auto;
+        width: 640px;
+    }
+</style>
