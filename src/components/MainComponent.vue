@@ -31,7 +31,7 @@ export default {
             return order.map(item => {
                 // if OBJECT
                 if (this.isObj(item)) {
-                    // complicated :) key is computed value and values go recursively
+                    // key is computed value and values go recursively
                     return { [this.getObjKey(item)]: this.mergePairs(this.getObjValue(item)) }
                 // if ARRAY
                 } else if (this.isArr(item)) {
@@ -46,13 +46,6 @@ export default {
             })
         },
 
-        // modifyObject(obj) {
-        //     return {
-        //         'label': Object.keys(obj)[0],
-        //         'node': obj[Object.keys(obj)]
-        //     }
-        // },
-
         getIndexValue (str, index) {
             return index[str]
         },
@@ -66,7 +59,6 @@ export default {
         },
 
         isArr (arr) {
-            // maybe empty array?
             if (Array.isArray(arr)) {
                 // if not empty array
                 return arr.length > 0
@@ -75,7 +67,6 @@ export default {
         },
 
         isObj (obj) {
-            // maybe empty obj?
             if (typeof obj === 'object' && !Array.isArray(obj)) {
                 return true
             }
