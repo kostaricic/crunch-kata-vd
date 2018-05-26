@@ -66,7 +66,7 @@ export default {
 
         borderLeft () {
             return {
-                borderLeft: `5px solid rgba(${this.ranNum256()},${this.ranNum256()},${this.ranNum256()},.1)`
+                borderLeft: `5px solid rgba(${this.ranNum(256)},${this.ranNum(256)},${this.ranNum(256)},.1)`
             }
         }
 
@@ -77,8 +77,8 @@ export default {
             this.showChildren = !this.showChildren
         },
 
-        ranNum256 () {
-            return Math.round(Math.random() * 256)
+        ranNum (num) {
+            return Math.round(Math.random() * num)
         }
     }
 }
