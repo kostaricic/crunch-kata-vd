@@ -27,7 +27,7 @@
         </div>
 
         <transition-group name="slide-fade">
-            <recursive-component
+            <display-data
                 v-if="showChildren"
                 v-for="(node, index) in valueProp"
                 :key="index"
@@ -36,7 +36,7 @@
                 :keyValueProp="node"
                 :depth="depth + 1"
                 >
-            </recursive-component>
+            </display-data>
         </transition-group>
     </div>
 </template>
@@ -110,6 +110,7 @@ export default {
         border-left: 8px solid rgba(106, 106, 106, 0.336);
     }
 
+    /* vue transition */
     .slide-fade-enter-active {
     transition: all .3s ease;
     }
