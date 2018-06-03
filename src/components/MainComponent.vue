@@ -33,10 +33,6 @@ export default {
                 if (this.isObj(item)) {
                     // key is computed value and values go recursively
                     return { [this.getObjKey(item)]: this.mergePairs(this.getObjValue(item)) }
-                // if ARRAY
-                } else if (this.isArr(item)) {
-                    // recursion
-                    return this.mergePairs(item)
                 // if STRING
                 } else if (this.isStr(item)) {
                     // replace string
