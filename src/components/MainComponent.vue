@@ -19,7 +19,9 @@ export default {
         return {
             order: require('./../../fixtures/order.json'),
             variables: require('./../../fixtures/variables.json'),
-            surveyData: ''
+            surveyData: '',
+            surveyData2: '',
+            test: ''
         }
     },
 
@@ -28,43 +30,77 @@ export default {
     },
 
     mounted () {
-        this.surveyData = this.getPosition(this.order.graph, 'c83da2')
+        this.surveyData = this.getPosition_str(this.order.graph, '0323cf')
+        this.surveyData2 = this.getPosition_arr(this.order.graph, '0323cf')
+        this.test = this.mergePairs(this.order.graph, 'c83da2')
+        // this.exposeVariables(this.variables.index)
     },
 
     methods: {
 
-        getPosition (order, val, path = '', result = []) {
+        mergePairs (order) {
+            return order.map((item, index) => {
+                // if OBJECT
+                if (this.isObj(item)) {
+                    // key is computed value and values go recursively
+                    return { [this.getObjKey(item)]: this.mergePairs(this.getObjValue(item)) }
+                // if STRING
+                } else if (this.isStr(item)) {
+                    // replace string
+                    return this.getIndexValue(item, this.variables['index'])
+                }
+                return false
+            })
+        },
+
+        getPosition_str (order, val, path = '', result = []) {
             // looping through the Array
-            for (let [index, x] of order.entries()) {
-                // if is Object
-                if (this.isObj(x)) {
+            for (let [index, item] of order.entries()) {
+                // if it's Object
+                if (this.isObj(item)) {
                     // Concatenate to the path object key as a string
-                    path += `[${index}]['${this.getObjKey(x)}']`
+                    path += `[${index}]['${this.getObjKey(item)}']`
                     // Recursion with the object Value, passing all parameters
-                    this.getPosition(this.getObjValue(x), val, path, result)
+                    this.getPosition_str(this.getObjValue(item), val, path, result)
                 //  if not an Object (string it is)
                 } else {
                     // concatenate index number as a string
                     path += `[${index}]`
                     // if choosen value === current item
-                    if (val === x) {
+                    if (val === item) {
                         // push path to the final result
                         result.push(path)
                     }
                 }
                 // Declaring variable to store length of current Objects key
-                let num = this.getObjKey(x)[0].length
-                // typeof x !== 'string' ? path = path.slice(0, (num - num * 2 - 7)) : path = path.slice(0, -3)
-                // !this.isStr(x) ? path = path.slice(0, (num - num * 2 - 7)) : path = path.slice(0, -3)
-
-                // if current item is not string, trim path from the end by length of the previously added string + extra for the "[x]"
-                // else, if's string just trim the "[x]"
-                !this.isStr(x) ? path = this.trimEnd(path, num, 7) : path = this.trimEnd(path, 0, 3)
+                let num = this.getObjKey(item)[0].length
+                // if current item is not string, trim path from the end by length of the previously added string + extra for the "[item]"
+                // else, if's string just trim the "[item]"
+                !this.isStr(item) ? path = this.trimEnd(path, num, 7) : path = this.trimEnd(path, 0, 3)
             }
             return result
         },
 
-        // Helper functions
+        getPosition_arr (order, val, path = [], result = []) {
+            for (let [index, item] of order.entries()) {
+                if (this.isObj(item)) {
+                    path.push(index, String(this.getObjKey(item)))
+                    this.getPosition_arr(this.getObjValue(item), val, path, result)
+                } else {
+                    path.push(index)
+                    if (val === item) {
+                        path.forEach(element => {
+                            result.push(element)
+                        })
+                        return result
+                    }
+                }
+                !this.isStr(item) ? path.splice(-2, 2) : path.splice(-1, 1)
+            }
+            // return result
+        },
+
+        //  Helper functions
 
         trimEnd (str, chunk, extra) {
             return str.slice(0, (chunk - chunk * 2 - extra))
