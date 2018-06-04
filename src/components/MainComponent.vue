@@ -39,7 +39,7 @@ export default {
     methods: {
 
         mergePairs (order) {
-            return order.map((item, index) => {
+            return order.map((item, index, arr) => {
                 // if OBJECT
                 if (this.isObj(item)) {
                     // key is computed value and values go recursively
@@ -47,6 +47,7 @@ export default {
                 // if STRING
                 } else if (this.isStr(item)) {
                     // replace string
+                    // return _.get({"a": arr}, 'a.' + this.getPosition_str(arr, item))
                     return this.getIndexValue(item, this.variables['index'])
                 }
                 return false
@@ -97,7 +98,7 @@ export default {
                 }
                 !this.isStr(item) ? path.splice(-2, 2) : path.splice(-1, 1)
             }
-            // return result
+            return result
         },
 
         //  Helper functions
