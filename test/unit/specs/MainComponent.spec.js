@@ -5,7 +5,6 @@ import * as _ from '../../../src/helpers'
 describe('MainComponent.vue', () => {
     const Constructor = Vue.extend(MainComponent)
     const vm = new Constructor().$mount()
-
     it('Checks if is an Array', () => {
         expect(_.isArr([34, ' asdf', {}])).to.equal(true)
         expect(_.isArr([1, 2, 3])).to.equal(true)
@@ -20,7 +19,6 @@ describe('MainComponent.vue', () => {
         expect(_.isObj([])).to.equal(false)
         expect(_.isObj('string')).to.equal(false)
     })
-
     it('Checks if is a String', () => {
         expect(_.isStr('string')).to.equal(true)
         expect(_.isStr({a: 1})).to.equal(false)

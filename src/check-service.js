@@ -3,10 +3,10 @@ import * as _ from './helpers'
 
 // acces deeply nested values
 // https://medium.com/javascript-inside/safely-accessing-deeply-nested-values-in-javascript-99bf72a0855a
-export const get = (p, o) =>
-    p.reduce((xs, x) => (xs && xs[x]) ? xs[x] : null, o)
+// export const get = (p, o) =>
+//     p.reduce((xs, x) => (xs && xs[x]) ? xs[x] : null, o)
 
-export function getPathArr (order, val, path = [], result = []) {
+export const getPathArr = (order, val, path = [], result = []) => {
     // looping through the Array
     for (let [index, item] of order.entries()) {
         // if it's Object
@@ -59,5 +59,5 @@ export function getPathStr (order, val, path = '', result = []) {
         // else, if's string just trim the "[item]"
         !_.isStr(item) ? path = _.trimEnd(path, num, 7) : path = _.trimEnd(path, 0, 3)
     }
-    return result
+    return result[0]
 }

@@ -15,17 +15,24 @@ module.exports = function karmaConfig (config) {
     // 1. install corresponding karma launcher
     //    http://karma-runner.github.io/0.13/config/browsers.html
     // 2. add it to the `browsers` array below.
-    browsers: ['Chrome'],
+    browsers: ['ChromeDebugging'],
 
     // browsers: ['Chrome', 'ChromeHeadless', 'MyHeadlessChrome'],
+    customLaunchers: {
+        MyHeadlessChrome: {
+            base: 'ChromeHeadless',
+            flags: ['--disable-translate', '--disable-extensions', '--remote-debugging-port=9223']
+        },
+        ChromeDebugging: {
+            base: 'Chrome',
+            flags: ['--remote-debugging-port=9223'],
 
-    // customLaunchers: {
-    //     MyHeadlessChrome: {
-    //         base: 'ChromeHeadless',
-    //         flags: ['--disable-translate', '--disable-extensions', '--remote-debugging-port=9223']
-    //     }
-    // },
-
+        }
+    },
+    // disable logsj
+    client: {
+        captureConsole: false
+    },
 
     frameworks: ['mocha', 'sinon-chai'],
     reporters: ['spec', 'coverage'],

@@ -28,24 +28,24 @@ export default {
     },
 
     mounted () {
-        this.surveyData = this.mergePairs(this.order.graph)
+        this.surveyData = this.mergePairs(this.order.graph, this.variables['index'])
         this.surveyData2 = this.createSurvey(this.variables.index, this.order.graph)
         // this.exposeVariables(this.variables.index)
     },
 
     methods: {
 
-        mergePairs (order) {
+        mergePairs (order, variables) {
             return order.map((item, index, arr) => {
                 // if OBJECT
                 if (_help_.isObj(item)) {
                     // key is computed value and values go recursively
-                    return { [_help_.getObjKey(item)]: this.mergePairs(_help_.getObjValue(item)) }
+                    return { [_help_.getObjKey(item)]: this.mergePairs(_help_.getObjValue(item), variables) }
                 // if STRING
                 } else if (_help_.isStr(item)) {
                     // replace string
                     // return _help_.get({"a": arr}, 'a.' + _help_.getPosition_str(arr, item))
-                    return _help_.getIndexValue(item, this.variables['index'])
+                    return _help_.getIndexValue(item, variables)
                 }
                 return false
             })
@@ -54,8 +54,8 @@ export default {
         createSurvey (variables, order) {
             let finalObj = {}
             for (let prop in variables) {
-                let data = variables[prop]
                 let path = _path_.getPathArr(order, prop)
+                let data = variables[prop]
                 _.set(finalObj, path, data)
             }
             return finalObj
