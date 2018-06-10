@@ -1,7 +1,7 @@
 <template>
     <div class="main-container">
         <display-data
-            :valueProp="surveyData2"
+            :valueProp="surveyData"
             :keyProp="['SURVEY DATA']"
             :depth="0"
             >
@@ -28,39 +28,21 @@ export default {
     },
 
     mounted () {
-        this.surveyData = this.mergePairs(this.order.graph, this.variables['index'])
-        this.surveyData2 = this.createSurvey(this.variables.index, this.order.graph)
-        // this.exposeVariables(this.variables.index)
+        this.surveyData = this.createSurvey(this.variables.index, this.order.graph)
     },
 
     methods: {
 
-        mergePairs (order, variables) {
-            return order.map((item, index, arr) => {
-                // if OBJECT
-                if (_help_.isObj(item)) {
-                    // key is computed value and values go recursively
-                    return { [_help_.getObjKey(item)]: this.mergePairs(_help_.getObjValue(item), variables) }
-                // if STRING
-                } else if (_help_.isStr(item)) {
-                    // replace string
-                    // return _help_.get({"a": arr}, 'a.' + _help_.getPosition_str(arr, item))
-                    return _help_.getIndexValue(item, variables)
-                }
-                return false
-            })
-        },
-
         createSurvey (variables, order) {
             let finalObj = {}
+            let paths = _path_.getAllPathsStr(order)
             for (let prop in variables) {
-                let path = _path_.getPathArr(order, prop)
+                let path = paths[prop]
                 let data = variables[prop]
                 _.set(finalObj, path, data)
             }
             return finalObj
         }
-
     }
 }
 </script>

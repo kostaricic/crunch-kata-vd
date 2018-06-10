@@ -1,10 +1,10 @@
 import Vue from 'vue'
 import App from './App'
 
-import displayComponent from './components/displayComponent'
+import displayData from './components/displayData'
 import MainComponent from './components/MainComponent'
 
-Vue.component('display-data', displayComponent)
+Vue.component('display-data', displayData)
 Vue.component('main-component', MainComponent)
 
 Vue.config.productionTip = false

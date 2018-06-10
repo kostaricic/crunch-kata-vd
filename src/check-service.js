@@ -34,24 +34,22 @@ export const getPathArr = (order, val, path = [], result = []) => {
     return result
 }
 
-export function getPathStr (order, val, path = '', result = []) {
+export function getAllPathsStr (order, path = '', result = {}) {
     // looping through the Array
     for (let [index, item] of order.entries()) {
         // if it's Object
         if (_.isObj(item)) {
             // Concatenate to the path object key as a string
             path += `[${index}]['${_.getObjKey(item)}']`
-            // Recursion with the object Value, passing all parameters
-            getPathStr(_.getObjValue(item), val, path, result)
+            // if objValue is Array then Recursion with the object Value, passing all parameters, otherwise make path
+            // _.isArr(_.getObjValue(item)) ? getAllPathsStr(_.getObjValue(item), path, result) : result[_.getObjValue(item)] = path
+             getAllPathsStr(_.getObjValue(item), path, result)
         //  if not an Object (string it is)
         } else {
             // concatenate index number as a string
             path += `[${index}]`
-            // if choosen value === current item
-            if (val === item) {
-                // push path to the final result
-                result.push(path)
-            }
+            // make key (index) : value (path)
+            result[item] = path
         }
         // Declaring variable to store length of current Objects key
         let num = _.getObjKey(item)[0].length
@@ -59,5 +57,5 @@ export function getPathStr (order, val, path = '', result = []) {
         // else, if's string just trim the "[item]"
         !_.isStr(item) ? path = _.trimEnd(path, num, 7) : path = _.trimEnd(path, 0, 3)
     }
-    return result[0]
+    return result
 }
