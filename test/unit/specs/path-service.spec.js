@@ -1,5 +1,5 @@
 // import getPathArr from '../../../src/check-service'
-import * as _path_ from '../../../src/check-service'
+import * as _path_ from '../../../src/path-service'
 import _ from 'lodash'
 
 const graph = require('../../../fixtures/order.json').graph
@@ -37,7 +37,7 @@ describe('Ensure that service', () => {
                 _.set(foodObj, foodPaths[prop], prop)
             }
             let foodArr_1 = []
-            // loop through object
+            // iterate over object
             for (let prop in foodObj) {
                 // convert to Array for comparison
                 foodArr_1.push(foodObj[prop])
@@ -45,7 +45,7 @@ describe('Ensure that service', () => {
             expect(foodArr_0).to.deep.equal(foodArr_1)
         })
 
-        it ('gets correct string paths for entry / graph fixture', () => {
+        it ('gets correct string paths for entries / graph fixture', () => {
             let graphPaths = _path_.getAllPathsStr(graph)
             let graphObj = {}
 

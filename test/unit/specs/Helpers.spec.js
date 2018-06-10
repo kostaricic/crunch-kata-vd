@@ -1,5 +1,11 @@
 // import Vue from 'vue'
+import Vue from 'vue'
+import MainComponent from '@/components/MainComponent'
 import * as _v_ from '../../../src/helpers'
+import DisplayData from '../../../src/components/DisplayData.vue'
+
+Vue.component('display-data', DisplayData)
+new Vue(MainComponent).$mount()
 
 describe('helpers', () => {
 
