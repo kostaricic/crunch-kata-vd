@@ -38,3 +38,7 @@ export function isStr (str) {
     }
     return false
 }
+
+export function ranNum(num) {
+    return Math.round(Math.random() * num)
+}

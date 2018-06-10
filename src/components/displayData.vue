@@ -13,7 +13,7 @@
 
         <div
             :style="[borderLeft, indent]"
-            @click="toggleChildren()"
+            @click="showChildren = !showChildren"
             class="recursive-container"
             :class="{'cursor-pointer': valueProp, 'left-border': !valueProp}"
             >
@@ -42,6 +42,7 @@
 </template>
 
 <script>
+import {ranNum} from '../helpers'
 export default {
     props: ['keyProp', 'valueProp', 'keyValueProp', 'depth'],
 
@@ -66,20 +67,14 @@ export default {
 
         borderLeft () {
             return {
-                borderLeft: `5px solid rgba(${this.ranNum(256)},${this.ranNum(256)},${this.ranNum(256)},.1)`
+                borderLeft: `5px solid rgba(${ranNum(256)},${ranNum(256)},${ranNum(256)},.1)`
             }
         }
 
     },
 
     methods: {
-        toggleChildren () {
-            this.showChildren = !this.showChildren
-        },
 
-        ranNum (num) {
-            return Math.round(Math.random() * num)
-        }
     }
 }
 

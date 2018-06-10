@@ -9,41 +9,55 @@ describe('Ensure that service', () => {
             let index = '7a89e0'
             let actual = _path_.getPathArr(graph, index)
             expect(actual).to.deep.equal([0, 'Awareness Metrics', 0, 'Taxis', 1])
-            // debugger
         })
     })
     describe('getAllPathsStr', () => {
-        it('gets correct string path for entry', () => {
-            let expected = "[0]['Awareness Metrics'][0]['Taxis'][1]"
-            let actual = _path_.getAllPathsStr(graph)
-            let obj = [
+        it('gets correct string paths for entry', () => {
+            let foodArr_0 = [
                 {
-                    'voce': ['jabuka', 'kruska', 'sljiva']
+                    'fruits': ['apples', 'peaches', 'plums']
                 },
                 {
-                    'povrce': [
-                        {'zeleno': ['salata', 'grasak']},
-                        {'crveno': ['paradajza', 'paprika']}
+                    'vegetables': [
+                        {'green': ['salad', 'peas']},
+                        {'red': ['tomatoes', 'paprika']}
                     ]
                 },
                 {
-                    'slatkisi': ['super']
+                    'sweets': ['great!']
                 }
             ]
 
-            let objPaths = _path_.getAllPathsStr(obj)
-            let obj2 = {}
-            for (let prop in objPaths) {
-                _.set(obj2, objPaths[prop], prop)
+            // getting all paths from foodArr
+            let foodPaths = _path_.getAllPathsStr(foodArr_0)
+            let foodObj = {}
+            // loop through paths
+            for (let prop in foodPaths) {
+                // make duplicate from paths and store it in Object
+                _.set(foodObj, foodPaths[prop], prop)
             }
-            let obj3 = []
-            for (let prop in obj2) {
-                obj3.push(obj2[prop])
+            let foodArr_1 = []
+            // loop through object
+            for (let prop in foodObj) {
+                // convert to Array for comparison
+                foodArr_1.push(foodObj[prop])
             }
-            // debugger
-            expect(obj3).to.deep.equal(obj)
+            expect(foodArr_0).to.deep.equal(foodArr_1)
+        })
 
-            // expect(actual).to.equal(expected)
+        it ('gets correct string paths for entry / graph fixture', () => {
+            let graphPaths = _path_.getAllPathsStr(graph)
+            let graphObj = {}
+
+            for (let prop in graphPaths) {
+                _.set(graphObj, graphPaths[prop], prop)
+            }
+            let graph_1 = []
+
+            for (let prop in graphObj) {
+                graph_1.push(graphObj[prop])
+            }
+            expect(graph).to.deep.equal(graph_1)
         })
     })
 
