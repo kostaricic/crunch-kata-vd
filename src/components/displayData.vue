@@ -1,19 +1,8 @@
 <template>
     <div>
-        <!-- for debugging -->
-        <!-- <div>
-            <hr>
-            <h2>keyProp</h2>
-            {{ keyProp }}
-            <h2>valueProp</h2>
-            {{ valueProp }}
-            <h2>keyValueProp</h2>
-            {{ keyValueProp }}
-        </div> -->
-
         <div
             :style="[borderLeft, indent]"
-            @click="toggleChildren()"
+            @click="showChildren = !showChildren"
             class="recursive-container"
             :class="{'cursor-pointer': valueProp, 'left-border': !valueProp}"
             >
@@ -27,7 +16,7 @@
         </div>
 
         <transition-group name="slide-fade">
-            <recursive-component
+            <display-data
                 v-if="showChildren"
                 v-for="(node, index) in valueProp"
                 :key="index"
@@ -36,12 +25,13 @@
                 :keyValueProp="node"
                 :depth="depth + 1"
                 >
-            </recursive-component>
+            </display-data>
         </transition-group>
     </div>
 </template>
 
 <script>
+import {ranNum} from '../helpers'
 export default {
     props: ['keyProp', 'valueProp', 'keyValueProp', 'depth'],
 
@@ -66,21 +56,11 @@ export default {
 
         borderLeft () {
             return {
-                borderLeft: `5px solid rgba(${this.ranNum256()},${this.ranNum256()},${this.ranNum256()},.1)`
+                borderLeft: `5px solid rgba(${ranNum(256)},${ranNum(256)},${ranNum(256)},.1)`
             }
         }
 
     },
-
-    methods: {
-        toggleChildren () {
-            this.showChildren = !this.showChildren
-        },
-
-        ranNum256 () {
-            return Math.round(Math.random() * 256)
-        }
-    }
 }
 
 </script>
@@ -110,6 +90,7 @@ export default {
         border-left: 8px solid rgba(106, 106, 106, 0.336);
     }
 
+    /* vue transition */
     .slide-fade-enter-active {
     transition: all .3s ease;
     }

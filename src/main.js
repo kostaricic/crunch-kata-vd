@@ -1,10 +1,10 @@
 import Vue from 'vue'
 import App from './App'
 
-import recursiveComponent from './components/recursiveComponent'
+import DisplayData from './components/DisplayData'
 import MainComponent from './components/MainComponent'
 
-Vue.component('recursive-component', recursiveComponent)
+Vue.component('display-data', DisplayData)
 Vue.component('main-component', MainComponent)
 
 Vue.config.productionTip = false
