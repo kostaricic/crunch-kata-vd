@@ -1,5 +1,7 @@
 # Vladimir Dabić's CRUNCH-KATA
 
+crunch.io exercise for evaluating  automated testing and problem solving skills.
+
 > A Vue.js project
 
 This is deliverable in response to these [instructions](/instructions.md).
