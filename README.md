@@ -1,6 +1,8 @@
-# crunch-kata-vd
+# Vladimir Dabić's CRUNCH-KATA
 
 > A Vue.js project
+
+This is deliverable in response to these [instructions](/instructions.md).
 
 ## Build Setup
 
