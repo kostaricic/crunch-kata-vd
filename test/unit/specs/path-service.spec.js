@@ -13,7 +13,7 @@ describe('Ensure that service', () => {
     })
     describe('getAllPathsStr', () => {
         it('gets correct string paths for entry', () => {
-            let foodArr_0 = [
+            let foodArr0 = [
                 {
                     'fruits': ['apples', 'peaches', 'plums']
                 },
@@ -29,36 +29,35 @@ describe('Ensure that service', () => {
             ]
 
             // getting all paths from foodArr
-            let foodPaths = _path_.getAllPathsStr(foodArr_0)
+            let foodPaths = _path_.getAllPathsStr(foodArr0)
             let foodObj = {}
             // loop through paths
             for (let prop in foodPaths) {
                 // make duplicate from paths and store it in Object
                 _.set(foodObj, foodPaths[prop], prop)
             }
-            let foodArr_1 = []
+            let foodArr1 = []
             // iterate over object
             for (let prop in foodObj) {
                 // convert to Array for comparison
-                foodArr_1.push(foodObj[prop])
+                foodArr1.push(foodObj[prop])
             }
-            expect(foodArr_0).to.deep.equal(foodArr_1)
+            expect(foodArr0).to.deep.equal(foodArr1)
         })
 
-        it ('gets correct string paths for entries / graph fixture', () => {
+        it('gets correct string paths for entries / graph fixture', () => {
             let graphPaths = _path_.getAllPathsStr(graph)
             let graphObj = {}
 
             for (let prop in graphPaths) {
                 _.set(graphObj, graphPaths[prop], prop)
             }
-            let graph_1 = []
+            let graph1 = []
 
             for (let prop in graphObj) {
-                graph_1.push(graphObj[prop])
+                graph1.push(graphObj[prop])
             }
-            expect(graph).to.deep.equal(graph_1)
+            expect(graph).to.deep.equal(graph1)
         })
     })
-
 })

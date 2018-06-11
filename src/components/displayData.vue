@@ -1,16 +1,5 @@
 <template>
     <div>
-        <!-- for debugging -->
-        <!-- <div>
-            <hr>
-            <h2>keyProp</h2>
-            {{ keyProp }}
-            <h2>valueProp</h2>
-            {{ valueProp }}
-            <h2>keyValueProp</h2>
-            {{ keyValueProp }}
-        </div> -->
-
         <div
             :style="[borderLeft, indent]"
             @click="showChildren = !showChildren"
@@ -72,10 +61,6 @@ export default {
         }
 
     },
-
-    methods: {
-
-    }
 }
 
 </script>

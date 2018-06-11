@@ -8,7 +8,6 @@ Vue.component('display-data', DisplayData)
 new Vue(MainComponent).$mount()
 
 describe('helpers', () => {
-
     it('Checks if is an Array', () => {
         expect(_v_.isArr([34, ' asdf', {}])).to.equal(true)
         expect(_v_.isArr([1, 2, 3])).to.equal(true)

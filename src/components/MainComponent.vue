@@ -11,7 +11,6 @@
 
 <script>
 
-import * as _help_ from '../helpers'
 import * as _path_ from '../path-service'
 import _ from 'lodash'
 
@@ -21,7 +20,7 @@ export default {
         return {
             order: require('./../../fixtures/order.json'),
             variables: require('./../../fixtures/variables.json'),
-            surveyData: '',
+            surveyData: ''
         }
     },
 

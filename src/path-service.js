@@ -1,11 +1,6 @@
 
 import * as _ from './helpers'
 
-// acces deeply nested values
-// https://medium.com/javascript-inside/safely-accessing-deeply-nested-values-in-javascript-99bf72a0855a
-// export const get = (p, o) =>
-//     p.reduce((xs, x) => (xs && xs[x]) ? xs[x] : null, o)
-
 export const getPathArr = (order, val, path = [], result = []) => {
     // looping through the Array
     for (let [index, item] of order.entries()) {
@@ -43,7 +38,7 @@ export function getAllPathsStr (order, path = '', result = {}) {
             path += `[${index}]['${_.getObjKey(item)}']`
             // if objValue is Array then Recursion with the object Value, passing all parameters, otherwise make path
             // _.isArr(_.getObjValue(item)) ? getAllPathsStr(_.getObjValue(item), path, result) : result[_.getObjValue(item)] = path
-             getAllPathsStr(_.getObjValue(item), path, result)
+            getAllPathsStr(_.getObjValue(item), path, result)
         //  if not an Object (string it is)
         } else {
             // concatenate index number as a string
